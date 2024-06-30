@@ -8,7 +8,7 @@ export default function Landing() {
         <div className="flex flex-col md:flex-row justify-evenly items-center">
           <div className="mb-6 md:mb-0 md:w-1/2">
             <h2 className="text-2xl md:text-3xl font-thin mb-4">FIFA Masters Conference</h2>
-            <p className="mb-2">23 Tem 2024 16:55 – 18:55</p>
+            <p className="mb-2">23 Tem 2024 16:55 - 18:55</p>
             <p className="mb-4">Elite Convention Center, Tehran, Tehran Province, Iran</p>
             <button className="px-6 py-2 bg-[#5b6081] hover:bg-[#4c5275] text-white rounded-md">Register Now</button>
           </div>
@@ -25,7 +25,7 @@ export default function Landing() {
               <div className="text-lg md:text-xl font-thin">South Stage</div>
               <div className="animate-pulse mt-2 md:mt-0">October 5, 2025, 14:00 GMT</div>
             </div>
-            <p className="mt-2">Get ready for the action! Here’s all you need to know about the upcoming tournament. Save the date and be a part of the excitement.</p>
+            <p className="mt-2">Get ready for the action! Here is all you need to know about the upcoming tournament. Save the date and be a part of the excitement.</p>
           </div>
           <div className="border-t-2 border-[#161e2b] pt-6 md:pt-9">
             <div className="flex flex-col md:flex-row justify-between items-center">
@@ -39,7 +39,7 @@ export default function Landing() {
               <div className="text-lg md:text-xl font-thin">North Stage</div>
               <div className="animate-pulse mt-2 md:mt-0">October 5, 2025, 14:00 GMT</div>
             </div>
-            <p className="mt-2">Don't miss the action at the North Stage! Witness epic showdowns and see who will emerge victorious in this high-stakes tournament.</p>
+            <p className="mt-2">Dont miss the action at the North Stage! Witness epic showdowns and see who will emerge victorious in this high-stakes tournament.</p>
           </div>
         </div>
       </div>
