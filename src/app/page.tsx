@@ -1,113 +1,84 @@
-import Image from "next/image";
+import { ToastProvider } from '@/components/ui/toast'; // Adjust the import according to your file structure
 
-export default function Home() {
+export default function Landing() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="landing relative border-b-2 border-[#161e2b]">
+      <div className="bg-gradient-to-b to-[#0f0c33] from-[#020c12] text-white p-6 md:p-10">
+        <h1 className="text-3xl md:text-5xl font-thin mb-6 md:mb-10 sliding-div-x">Get in the Game</h1>
+        <div className="flex flex-col md:flex-row justify-evenly items-center">
+          <div className="mb-6 md:mb-0 md:w-1/2">
+            <h2 className="text-2xl md:text-3xl font-thin mb-4">FIFA Masters Conference</h2>
+            <p className="mb-2">23 Tem 2024 16:55 – 18:55</p>
+            <p className="mb-4">Elite Convention Center, Tehran, Tehran Province, Iran</p>
+            <button className="px-6 py-2 bg-[#5b6081] hover:bg-[#4c5275] text-white rounded-md">Register Now</button>
+          </div>
+          <img src="/images/tekkz.png" alt="Conference" className="w-full md:w-1/2 rounded-lg" />
         </div>
       </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="min-h-screen bg-gradient-to-b from-[#0f0c33] to-[#161145] text-white p-6 md:p-10">
+        <h2 className="text-3xl md:text-5xl font-thin mb-10 md:mb-16 sliding-div-x">Game Schedule</h2>
+        <h3 className="text-xl md:text-2xl font-semibold mb-4">Tournament Format Overview</h3>
+        <div className="space-y-4">
+          <div className="border-t-2 border-[#161e2b] pt-6 md:pt-9">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="text-lg md:text-xl font-thin">South Stage</div>
+              <div className="animate-pulse mt-2 md:mt-0">October 5, 2025, 14:00 GMT</div>
+            </div>
+            <p className="mt-2">Get ready for the action! Here’s all you need to know about the upcoming tournament. Save the date and be a part of the excitement.</p>
+          </div>
+          <div className="border-t-2 border-[#161e2b] pt-6 md:pt-9">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="text-lg md:text-xl font-thin">Main Stage</div>
+              <div className="animate-pulse mt-2 md:mt-0">October 5, 2025, 14:00 GMT</div>
+            </div>
+            <p className="mt-2">Join us at the main stage for intense matches and thrilling gameplay. Experience the adrenaline rush as the top players battle it out.</p>
+          </div>
+          <div className="border-t-2 border-[#161e2b] pt-6 md:pt-9">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="text-lg md:text-xl font-thin">North Stage</div>
+              <div className="animate-pulse mt-2 md:mt-0">October 5, 2025, 14:00 GMT</div>
+            </div>
+            <p className="mt-2">Don't miss the action at the North Stage! Witness epic showdowns and see who will emerge victorious in this high-stakes tournament.</p>
+          </div>
+        </div>
       </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="bg-gradient-to-b from-[#161145] to-[#0f0c33] text-white p-6 md:p-10">
+        <h1 className="text-2xl md:text-4xl font-thin mb-6 md:mb-10 sliding-div-x">Watch Options</h1>
+        <h2 className="text-lg md:text-2xl font-thin italic mb-6 md:mb-10">
+          Choose how you want to experience the excitement of the tournament. Whether you prefer watching on the big screen, streaming from home, or joining fellow fans at a local venue, ChampsPlus has you covered.
+        </h2>
+        <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-10">
+          <p className="text-base md:text-lg">Official Sponsors</p>
+          <img src="/images/ea.png" alt="Sponsor 1" className="h-32 md:h-56" />
+          <img src="/images/ea.png" alt="Sponsor 2" className="h-32 md:h-56" />
+        </div>
       </div>
-    </main>
+
+      <div className="bg-gradient-to-b from-[#0f0c33] to-[#020c12] p-6 md:p-10">
+        <header className="flex justify-between items-start mb-10">
+          <div className="text-3xl md:text-4xl font-thin italic text-[#c5c6c7] animate-bounce">ChampsPlus+</div>
+        </header>
+
+        <main className="flex flex-col md:flex-row justify-end items-end md:justify-between md:items-start">
+          <div className="text-right md:text-left mb-6 md:mb-0">
+            <p className="text-[#c5c6c7]">123-456-7890</p>
+            <p className="text-[#c5c6c7]">info@mysite.com</p>
+            <p className="text-[#c5c6c7]">500 Terry Francine Street, 6th Floor, San Francisco, CA 94158</p>
+          </div>
+          <div className="text-right md:text-left">
+            <h2 className="text-2xl md:text-4xl font-thin text-[#c5c6c7] mb-4">Stay informed, join our newsletter</h2>
+            <input
+              type="email"
+              className="w-full md:w-64 p-2 mb-4 border border-purple-300 text-[#0f0c33] rounded-md"
+              placeholder="mojibc1377@gmail.com"
+            />
+            <button className="w-full md:w-auto ml-0 md:ml-4 px-4 py-2 bg-[#5b6081] hover:bg-[#4c5275] text-white rounded-md">Subscribe</button>
+            <p className="mt-2 text-[#c5c6c7]">Thank you for subscribing!</p>
+          </div>
+        </main>
+      </div>
+    </div>
   );
 }
