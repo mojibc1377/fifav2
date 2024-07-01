@@ -1,6 +1,10 @@
 import { ToastProvider } from '@/components/ui/toast'; // Adjust the import according to your file structure
+import { authOptions } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
 
-export default function Landing() {
+export default async function Landing() {
+  const session = await getServerSession(authOptions)
+  
   return (
     <div className="landing relative border-b-2 border-[#161e2b]">
       <div className="bg-gradient-to-b to-[#0f0c33] from-[#020c12] text-white p-6 md:p-10">

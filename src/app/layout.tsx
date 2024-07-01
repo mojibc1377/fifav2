@@ -36,6 +36,10 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useRouter } from "next/router";
 import { Toaster } from "@/components/ui/toaster"
+import { getServerSession } from 'next-auth';
+import { authOptions } from "@/lib/auth";
+import SignOut from "@/components/ui/sign-out";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,13 +47,15 @@ export const metadata: Metadata = {
   title: "ChampsPlus+",
   description: "developed by MojiBc",
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
   activePath,
 }: Readonly<{
   children: React.ReactNode;
   activePath: string;
 }>) {
+  const session = await getServerSession(authOptions)
+
 
   // Function to check if the link is active
   const isActive = (path: string) => activePath === path;
@@ -217,25 +223,35 @@ export default function RootLayout({
                 </form>
               </div>
               <DropdownMenu>
+                <div className="font-extralight mr-0">
+              {session?.user?.userName}
+              </div>
                 <DropdownMenuTrigger asChild>
+                  
                   <Button variant="secondary" size="icon" className="rounded-full">
+                    <div className="flex flex-row">
                     <CircleUser className="h-5 w-5" />
+
+                    </div>
                     <span className="sr-only">Toggle user menu</span>
                   </Button>
                 </DropdownMenuTrigger>
+                
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
               <DropdownMenuItem><Link href={'/dashboard'}>Settings</Link></DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              {
+                (session?.user)? <DropdownMenuItem><SignOut/></DropdownMenuItem>  : <DropdownMenuItem><Link href={'/sign-in'}>Login</Link></DropdownMenuItem>
+              }
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
         {children}
 
       </div>
+      <Toaster/>
+
     </div>
     </body>
     </html>

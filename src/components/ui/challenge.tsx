@@ -65,7 +65,6 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ type, status }) =>
                 {/* date created */}
 
             </div>
-            
             </div>
         </div>
       </CardContent>
@@ -85,7 +84,6 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ type, status }) =>
       </CardFooter>
     </Card>
     </ToastProvider>
-    <Toaster/>
     </div>
   )
 }
