@@ -47,7 +47,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ type, status }) =>
     <div>
     <ToastProvider>
 
-    <Card className=" w-max h-60 bg-secondary mt-3 mb-1 bg-opacity-5 shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div">
+    <Card className="w-max h-60 bg-secondary mt-3 mb-1 bg-opacity-5 shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div">
       <CardHeader className="flex flex-row gap-3 align-middle text-left justify-center">
         <CardTitle>
             <img src="/challengeImage/eafc24.jpg" alt="game" className=" w-28 mix-blend-lighten"></img>
@@ -73,7 +73,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ type, status }) =>
           type === "my" ? 
             status === true ? 
             (<button><MdOutlineMoreHoriz className="text-blue-300 text-3xl pt-1 animate-pulse"/></button> ): 
-            (<button onClick={handleLoaderClick}><LuLoader2 className="animate-spin text-blue-300 text-2xl"/></button> ):
+            (<button onClick={handleLoaderClick}><LuLoader2 className="animate-spin mt-1 text-blue-300 text-2xl"/></button> ):
             (<button className="w-max md:w-auto ml-0 md:ml-0 px-5 py-2 bg-[#5b6081] hover:bg-[#4c5275] hover:text-blue-300 text-blue-100 rounded-sm "> Accept </button>)
         }
 

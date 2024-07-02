@@ -19,7 +19,9 @@ model User {
   name    String?
   lastName String
   phone String @unique
+  credit Int @default(0)
   password String
+  avatar String @default("/images/tekkz.png")
   userName String @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

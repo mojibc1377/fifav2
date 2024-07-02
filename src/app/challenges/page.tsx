@@ -20,8 +20,8 @@ import {
 
 export default function TabsDemo() {
   return (
-    <Tabs defaultValue="account" className="w-full px-4 md:px-10 lg:px-48 mt-3">
-      <TabsList className="flex w-full px-2 md:px-10 gap-2 md:gap-6 mb-5 justify-evenly flex-col md:flex-row">
+    <Tabs defaultValue="all" className="w-full min-h-screen md:px-10 px-10 mt-3">
+      <TabsList className="flex w-full md:px-10 gap-2 md:gap-6 mb-5 justify-evenly flex-col md:flex-row">
         <TabsTrigger className="px-3 py-2 md:px-5 md:py-2 " value="all">
           All
         </TabsTrigger>
@@ -38,15 +38,23 @@ export default function TabsDemo() {
 
       <TabsContent value="all">
         <h1 className="mb-3">All Challenges</h1>
+        <div className="container mx-auto items-center justify-center flex mt-10">
+
         <ChallengeGrid status={false} type="all"/>
-      </TabsContent>
+
+</div></TabsContent>
 
       <TabsContent value="my">
+      <div className="container mx-auto items-center justify-center flex mt-10">
+
       <ChallengeGrid status={false} type="my"/>
+      </div>
       </TabsContent>
 
       <TabsContent value="accepted">
+      <div className="container mx-auto items-center justify-center flex mt-10">
       <ChallengeGrid status={true} type="my"/>
+      </div>
       </TabsContent>
 
       <TabsContent value="create">

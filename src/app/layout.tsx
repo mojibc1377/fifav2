@@ -39,6 +39,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import SignOut from "@/components/ui/sign-out";
+import { url } from "node:inspector";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -156,6 +157,7 @@ export default async function RootLayout({
                       <img src="/ea-logo.png" className="w-9" />
                       <span className="text-white">ChampsPlus+</span>
                     </Link>
+                    <SheetTrigger asChild>
                     <Link
                       href="/"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
@@ -163,6 +165,9 @@ export default async function RootLayout({
                       <Home className="h-5 w-5" />
                       Home
                     </Link>
+                    </SheetTrigger>
+
+                    <SheetTrigger asChild>
                     <Link
                       href="/tournoments"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
@@ -170,6 +175,9 @@ export default async function RootLayout({
                       <Trophy className="h-5 w-5" />
                       Tournaments
                     </Link>
+
+                    </SheetTrigger>
+                    <SheetTrigger asChild>
                     <Link
                       href="/challenges"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
@@ -177,6 +185,8 @@ export default async function RootLayout({
                       <Swords className="h-5 w-5" />
                       Challenges
                     </Link>
+                    </SheetTrigger>
+                    <SheetTrigger asChild>
                     <Link
                       href="/dashboard"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
@@ -184,6 +194,8 @@ export default async function RootLayout({
                       <UserCog className="h-5 w-5" />
                       Dashboard
                     </Link>
+                    </SheetTrigger>
+                    <SheetTrigger asChild>
                     <Link
                       href="/support"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
@@ -191,8 +203,9 @@ export default async function RootLayout({
                       <Headset className="h-5 w-5" />
                       Support
                     </Link>
+                    </SheetTrigger>
                   </nav>
-                  <div className="mt-auto">
+                  <div className="mt-auto mb-5">
                     <Card className=" self-end">
                       <CardHeader>
                         <CardTitle>Upgrade to Pro</CardTitle>
@@ -238,6 +251,7 @@ export default async function RootLayout({
                 </DropdownMenuTrigger>
                 
                 <DropdownMenuContent align="end">
+                  
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
               <DropdownMenuItem><Link href={'/dashboard'}>Settings</Link></DropdownMenuItem>
@@ -247,8 +261,9 @@ export default async function RootLayout({
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
+        <div style={{ backgroundImage: `url(${'/images/bg/bg.jpg'})`, backgroundSize: 'cover' , opacity:"revert-layer" }}>
         {children}
-
+        </div>
       </div>
       <Toaster/>
 

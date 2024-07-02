@@ -4,8 +4,6 @@ import { Phone, User } from "lucide-react";
 import { hash } from "bcrypt";
 import * as z from "zod"
 
-
-
 // schema input validation 
 
 const UserSchema = z.object({

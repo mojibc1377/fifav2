@@ -32,8 +32,8 @@ const UserDetailsForm: React.FC = () => {
   const password = watch("password");
 
   return (
-    <ToastProvider>
-      <Card className="w-full max-w-md mx-auto shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div-x">
+    <ToastProvider >
+      <Card className="w-full mb-10 max-w-md mx-auto shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div-x">
         <CardHeader>
           <CardTitle className='background-muted'>User Details</CardTitle>
           <CardDescription>Update your user details below.</CardDescription>
