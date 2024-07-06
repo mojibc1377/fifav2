@@ -5,8 +5,8 @@ import { signOut } from 'next-auth/react'
 
 export default function SignOut() {
   return (
-    <Button className=' text-white bg-transparent pl-0 hover:bg-transparent py-3 h-5' onClick={()=> signOut()}>
-        SignOut
+    <Button className='bg-transparent text-muted-foreground text-base pl-0 px-0 hover:bg-transparent hover:text-primary py-2 h-5' onClick={()=> signOut()}>
+        LogOut
     </Button>
   )
 }

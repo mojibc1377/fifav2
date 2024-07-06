@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { MdOutlineLogin , MdOutlineLogout} from "react-icons/md";
+
 import {
-  Bell,
   CircleUser,
   Home,
   Headset,
@@ -34,12 +35,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useRouter } from "next/router";
 import { Toaster } from "@/components/ui/toaster"
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import SignOut from "@/components/ui/sign-out";
-import { url } from "node:inspector";
+import Image from "next/image";
+import { SessionProvider } from "next-auth/react";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -60,6 +61,7 @@ export default async function RootLayout({
 
   // Function to check if the link is active
   const isActive = (path: string) => activePath === path;
+ 
 
   return (
     <html lang="en" className="dark">
@@ -93,14 +95,14 @@ export default async function RootLayout({
                   </Link>
                   <Link
                     href="/challenges"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${session ? "" : " hidden"}`}
                   >
                     <Swords className="h-4 w-4" />
                     Challenges
                   </Link>
                   <Link
                     href="/dashboard"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${session ? "" : " hidden"}`}
                   >
                     <UserCog className="h-4 w-4" />
                     Dashboard
@@ -112,11 +114,28 @@ export default async function RootLayout({
                     <Headset className="h-4 w-4" />
                     Support
                   </Link>
+                  <Link
+                      href="/sign-in"
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${session ? "" : "hidden"}`}
+                    >
+                      <MdOutlineLogout className="h-5 w-5" />
+                      <SignOut/>
+                    </Link>
+                    <Link
+                      href="/sign-in"
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${session ? "hidden" : ""}`}
+                    >
+                      <MdOutlineLogin className="h-4 w-4" />
+                      Login / Signup
+                    </Link>
                 </nav>
               </div>
               </div>
               <div>
-              <div className="mt-auto p-4 sliding-div bottom-0">
+             
+            </div>
+            </div>
+            <div className="fixed w-64 mt-auto p-4 sliding-div bottom-0" style={{ backgroundImage: `url(${'/images/bg/bg.jpg'})`, backgroundSize: 'cover' , opacity:"revert-layer" }}>
                 <Card x-chunk="dashboard-02-chunk-0  ">
                   <CardHeader className="p-2 pt-0 md:p-4">
                     <CardTitle>Upgrade to Pro</CardTitle>
@@ -132,8 +151,6 @@ export default async function RootLayout({
                   </CardContent>
                 </Card>
               </div>
-            </div>
-            </div>
           </div>
           <div className="flex flex-col">
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
@@ -180,7 +197,7 @@ export default async function RootLayout({
                     <SheetTrigger asChild>
                     <Link
                       href="/challenges"
-                      className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                      className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${session ? "" : " hidden"}`}
                     >
                       <Swords className="h-5 w-5" />
                       Challenges
@@ -189,7 +206,7 @@ export default async function RootLayout({
                     <SheetTrigger asChild>
                     <Link
                       href="/dashboard"
-                      className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                      className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${session ? "" : " hidden"}`}
                     >
                       <UserCog className="h-5 w-5" />
                       Dashboard
@@ -202,6 +219,24 @@ export default async function RootLayout({
                     >
                       <Headset className="h-5 w-5" />
                       Support
+                    </Link>
+                    </SheetTrigger>
+                    <SheetTrigger asChild>
+                    <Link
+                      href="/sign-in"
+                      className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${session ? "hidden" : ""}`}
+                    >
+                      <MdOutlineLogin className="h-5 w-5" />
+                      Login / Signup
+                    </Link>
+                    </SheetTrigger>
+                    <SheetTrigger asChild>
+                    <Link
+                      href="/sign-in"
+                      className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${session ? "" : "hidden"}`}
+                    >
+                      <MdOutlineLogout className="h-6 w-6" />
+                      <SignOut/>
                     </Link>
                     </SheetTrigger>
                   </nav>
@@ -236,25 +271,35 @@ export default async function RootLayout({
                 </form>
               </div>
               <DropdownMenu>
-                <div className="font-extralight mr-0">
+                <div className=" font-thin mr-0">
               {session?.user?.userName}
               </div>
                 <DropdownMenuTrigger asChild>
                   
-                  <Button variant="secondary" size="icon" className="rounded-full">
                     <div className="flex flex-row">
-                    <CircleUser className="h-5 w-5" />
+                    {session?.user?.avatar ? (
+        <Image
+          src={`${session.user.avatar}`}
+          height={35}
+          width={35}
+          alt="User Avatar"
+          className=" rounded-full"
+        />
+      ) : (
+        <Button variant="secondary" size="icon" className="rounded-full">
 
+        <CircleUser className="h-5 w-5" />                  
+        </Button>
+
+      )}
                     </div>
-                    <span className="sr-only">Toggle user menu</span>
-                  </Button>
                 </DropdownMenuTrigger>
                 
                 <DropdownMenuContent align="end">
                   
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-              <DropdownMenuItem><Link href={'/dashboard'}>Settings</Link></DropdownMenuItem>
+              <DropdownMenuItem><Link href={'/dashboard'} className="text-muted-foreground text-base hover:text-primary">Settings</Link></DropdownMenuItem>
               {
                 (session?.user)? <DropdownMenuItem><SignOut/></DropdownMenuItem>  : <DropdownMenuItem><Link href={'/sign-in'}>Login</Link></DropdownMenuItem>
               }
@@ -263,7 +308,7 @@ export default async function RootLayout({
         </header>
         <div style={{ backgroundImage: `url(${'/images/bg/bg.jpg'})`, backgroundSize: 'cover' , opacity:"revert-layer" }}>
         {children}
-        </div>
+                </div>
       </div>
       <Toaster/>
 

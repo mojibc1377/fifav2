@@ -1,116 +1,127 @@
+// components/AddChallengeForm.tsx
 "use client"
-import React, { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Toaster } from "@/components/ui/toaster"
-import { useToast } from "@/components/ui/use-toast"
+import { useState } from "react";
 import { ToastProvider } from '@radix-ui/react-toast';
+import { useToast } from "./use-toast";
 
-
-
-type ChallengeFormInputs = {
-  gameType: string;
-  consoleType: string;
-  price: number;
-};
-
-const AddChallengeForm: React.FC = () => {
-    const { toast } = useToast()
-
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<ChallengeFormInputs>();
+const AddChallengeForm = () => {
+  const { toast } = useToast();
+  const [gameType, setGameType] = useState("");
   const [consoleType, setConsoleType] = useState("");
+  const [price, setPrice] = useState("");
 
-  const onSubmit: SubmitHandler<ChallengeFormInputs> = (data) => {
-    console.log(data);
-    toast({
-        title: "Challenge Created",
-        description: "Your new challenge has been successfully created.",
-        duration: 3000,
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/challenges/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gameType,
+          consoleType,
+          price: parseInt(price, 10),
+        }),
       });
-    
-  };
 
-  const handleConsoleChange = (value: string) => {
-    setConsoleType(value);
-    setValue('consoleType', value, { shouldValidate: true });
+      const data = await response.json()
+      if (response.ok) {
+        toast({
+          title: "Challenge Added",
+          description: "You can now wait for your challenge to be accepted",
+          duration: 3000,
+          variant: "default"
+        });
+        // Clear form fields if needed
+        setGameType("");
+        setConsoleType("");
+        setPrice("");
+      } else if(response.status == 402 ) {
+        toast({
+          title: "insufficient funds",
+          description: "please charge account",
+          duration: 3000,
+          variant: 'destructive'
+        });
+      }
+    } catch (error) {
+      console.error("Error adding challenge:", error);
+      toast({
+        title: "Error",
+        description: "Oops, something went wrong",
+        duration: 3000,
+        variant: 'destructive'
+      });
+    }
   };
 
   return (
     <ToastProvider>
-
-    <Card className="w-full max-w-md mx-auto shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div-x">
-      <CardHeader>
-        <CardTitle className='background-muted'>Add New Challenge</CardTitle>
-        <CardDescription>Fill out the form below to add a new challenge.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Game Type Radio Input */}
+      <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div-x">
+        <div className="space-y-4 p-4">
           <div>
-            <Label className="my-4">Game Type</Label>
+            <label className="block mb-2">Game Type</label>
             <div className="flex space-x-4">
               <label>
                 <input
                   type="radio"
-                  className="mr-1 custom-radio"
-                  value="game1"
-                  {...register('gameType', { required: true })}
+                  value="fc24"
+                  checked={gameType === "fc24"}
+                  onChange={(e) => setGameType(e.target.value)}
+                  className="ml-1 custom-radio"
+                  required
                 />
-                Game 1
+                FC24
               </label>
               <label>
                 <input
                   type="radio"
-                  className="mr-1 custom-radio"
-                  value="game2"
-                  {...register('gameType', { required: true })}
+                  value="fc25"
+                  defaultChecked
+                  checked={gameType === "fc25"}
+                  onChange={(e) => setGameType(e.target.value)}
+                  className="ml-4 custom-radio"
+                  required
                 />
-                Game 2
+                FC 25
               </label>
-              {errors.gameType && <span className="text-red-500 mt-2">This field is required</span>}
             </div>
           </div>
 
-          {/* Console Type Dropdown */}
           <div>
-            <Label className="my-4">Console Type</Label>
-            <Select value={consoleType} onValueChange={handleConsoleChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select console" />
-              </SelectTrigger>
-              <SelectContent className='py-0.5'>
-                <SelectItem value="console1">Ps4</SelectItem>
-                <SelectItem value="console2">Ps5</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.consoleType && <span className="text-red-500">This field is required</span>}
+            <label className="block mb-2">Console Type</label>
+            <select
+              value={consoleType}
+              onChange={(e) => setConsoleType(e.target.value)}
+              className="w-full px-3 py-2 border rounded text-black shadow-sm focus:outline-none focus:border-blue-500"
+              required
+            >
+              <option value="">Select console</option>
+              <option value="ps4">PS4</option>
+              <option value="ps5">PS5</option>
+            </select>
           </div>
 
-          {/* Price Input */}
           <div>
-            <Label className="my-4">Price (Coins)</Label>
-            <Input
+            <label className="block mb-2">Price (Coins)</label>
+            <input
               type="number"
-              {...register('price', { required: true, min: 10, max: 100 })}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               placeholder="Enter price"
+              className="w-full px-3 py-2 border rounded placeholder-gray-400 shadow-sm focus:outline-none focus:border-blue-500"
+              required
             />
-            {errors.price && <span className="text-red-500 mt-2">Price must be between 10 and 100 coins</span>}
           </div>
 
-          {/* Submit Button */}
-          <Button type="submit" className="w-full bg-[#5b6081] hover:bg-[#4c5275] text-white">Add Challenge</Button>
-        </form>
-        
-      </CardContent>
-
-    </Card>
-    <Toaster/>
+          <button type="submit" className="w-full bg-[#5b6081] hover:bg-[#4c5275] text-white py-2 px-4 mt-4 rounded-md">
+            Add Challenge
+          </button>
+        </div>
+      </form>
     </ToastProvider>
-
   );
 };
 

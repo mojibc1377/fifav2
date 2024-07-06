@@ -9,41 +9,56 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import History from '@/components/history';
+import AddCreditForm from '@/components/chargeAccount';
+import { SessionProvider } from 'next-auth/react';
 
 const Dashboard = () => {
-  const [ avatar ,setAvatar] = useState('')
-  const handleAvatarSelect = (avatarLink: SetStateAction<string>) =>{
-    setAvatar(avatarLink)
-  }
-
+  const [avatar, setAvatar] = useState('');
+  const handleAvatarSelect = (avatarLink: SetStateAction<string>) => {
+    setAvatar(avatarLink);
+  };
 
   return (
-   
-<Tabs defaultValue="n" className="w-full min-h-screen px-4 md:px-10 lg:px-48 mt-3">
+    <SessionProvider>
+    <Tabs defaultValue="n" className="w-full min-h-screen px-4 md:px-10 lg:px-48 mt-3">
       <TabsList className="flex w-full px-2 md:px-10 gap-2 md:gap-6 mb-5 justify-evenly flex-col md:flex-row">
-        
         <TabsTrigger className="px-3 py-2 md:px-5 md:py-2" value="account-settings">
-        Account Settings
+          Account Settings
         </TabsTrigger>
-
-        <TabsTrigger className="px-3 py-2 md:px-5 md:py-2 " value="history">
-          History
+       
+        <TabsTrigger className="px-3 py-2 md:px-5 md:py-2 " value="chargeaccount">
+          Charge credit
         </TabsTrigger>
-
       </TabsList>
+      <TabsContent value='n'>
+        <div className='items-center mx-10 text-center'>
+      <h1 className='text-2xl mb-3 mt-20'>Account Settings</h1>
+      <p>
+      In the Account Settings section,<br/> you can manage your personal information and update your account details.
+     Keep your profile up-to-date to ensure you receive the best experience on our platform.
 
+      </p>
+      <h1 className='text-2xl mt-10 mb-3'>Credit Settings</h1>
+<p>
+In the Credit section, you can easily manage your account balance. <br/>
+Whether you want to charge your account to increase your credit or withdraw money, this section provides you with the tools to stay in control of your finances.
+
+</p>
+</div>
+      </TabsContent>
       <TabsContent value="account-settings">
-
         <UserDetailsForm />
-
       </TabsContent>
 
-      <TabsContent value="history">
-        <History/>
-      </TabsContent>
+     
 
+      <TabsContent value="chargeaccount">
+        <SessionProvider>
+        <AddCreditForm />
+        </SessionProvider>
+      </TabsContent>
     </Tabs>
+    </SessionProvider>
   );
 };
 

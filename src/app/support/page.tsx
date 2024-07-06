@@ -35,13 +35,24 @@ export default function Support() {
         </TabsList>
 
         <TabsContent value="n">
-          <h1 className="mb-3 text-center md:text-left">All Challenges</h1>
-          <div className="container mx-auto items-center justify-center flex mt-10">
+          <div className='p-10 text-ellipsis font-sans'>
+          <h1 className="mb-3 text-center text-2xl mt-10 ">Need Help? We are Here for You!</h1>
+          <div className="container mx-auto items-center justify-center text-center flex mt-8">
+          If you have any questions or need support, you can easily reach out to us through Telegram, WhatsApp, or direct email. 
+          <br/>
+          We’re always here to help you out.<br/>
+          We’re a small team and sometimes it might take a little while to get back to you. <br/>
+          But don’t worry, we’ll respond as soon as possible. <br/>
+          Your patience and understanding are greatly appreciated!<br/>
+          Thank you for being a part of our community. <br/>
+          We’re here to support you every step of the way.<br/>
+          </div>
           </div>
         </TabsContent>
 
         <TabsContent value="socials">
-          <div className="grid gap-2">
+          <div className='items-center flex flex-row justify-center pt-20'>
+          <div className=" flex flex-row gap-10">
             <a href="https://t.me/+989330726042" className='bg-blue-400 hover:bg-blue-700 w-min px-4 py-2 rounded-md flex items-center gap-2'>
               <p>Telegram</p>
               <PiTelegramLogo />
@@ -50,6 +61,7 @@ export default function Support() {
               Whatsapp
               <FaWhatsapp />
             </a>
+          </div>
           </div>
         </TabsContent>
 
