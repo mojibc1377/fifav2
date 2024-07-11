@@ -59,7 +59,7 @@ const AddChallengeForm = () => {
 
   return (
     <ToastProvider>
-      <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div-x">
+      <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto shadow-inner border-solid card sliding-div-x">
         <div className="space-y-4 p-4">
           <div>
             <label className="block mb-2">Game Type</label>
@@ -95,7 +95,7 @@ const AddChallengeForm = () => {
             <select
               value={consoleType}
               onChange={(e) => setConsoleType(e.target.value)}
-              className="w-full px-3 py-2 border rounded text-black shadow-sm focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 border rounded bg-muted-foreground shadow-sm focus:outline-none focus:border-gray-800"
               required
             >
               <option value="">Select console</option>
@@ -110,8 +110,8 @@ const AddChallengeForm = () => {
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              placeholder="Enter price"
-              className="w-full px-3 py-2 border rounded placeholder-gray-400 shadow-sm focus:outline-none focus:border-blue-500"
+              placeholder="Enter price min:10 max:-"
+              className="w-full px-3 py-2 border rounded bg-muted-foreground shadow-sm focus:outline-none focus:border-gray-800 placeholder:text-white"
               required
             />
           </div>

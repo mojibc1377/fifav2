@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/tabs";
 import AddCreditForm from '@/components/chargeAccount';
 import { SessionProvider } from 'next-auth/react';
+import AddPaymentMethod from '@/components/form/addPayment';
 
 const Dashboard = () => {
   const [avatar, setAvatar] = useState('');
@@ -20,19 +21,19 @@ const Dashboard = () => {
 
   return (
     <SessionProvider>
-    <Tabs defaultValue="n" className="w-full min-h-screen px-4 md:px-10 lg:px-48 mt-3">
+    <Tabs defaultValue="n" className="w-full min-h-screen px-4 md:px-10 flex-col items-center justify-center lg:px-48 mt-3">
       <TabsList className="flex w-full px-2 md:px-10 gap-2 md:gap-6 mb-5 justify-evenly flex-col md:flex-row">
         <TabsTrigger className="px-3 py-2 md:px-5 md:py-2" value="account-settings">
           Account Settings
         </TabsTrigger>
        
         <TabsTrigger className="px-3 py-2 md:px-5 md:py-2 " value="chargeaccount">
-          Charge credit
+          Credit panel
         </TabsTrigger>
       </TabsList>
       <TabsContent value='n'>
         <div className='items-center mx-10 text-center'>
-      <h1 className='text-2xl mb-3 mt-20'>Account Settings</h1>
+      <h1 className='text-2xl mb-3 mt-5'>Account Settings</h1>
       <p>
       In the Account Settings section,<br/> you can manage your personal information and update your account details.
      Keep your profile up-to-date to ensure you receive the best experience on our platform.
@@ -54,7 +55,9 @@ Whether you want to charge your account to increase your credit or withdraw mone
 
       <TabsContent value="chargeaccount">
         <SessionProvider>
+        <AddPaymentMethod/>
         <AddCreditForm />
+
         </SessionProvider>
       </TabsContent>
     </Tabs>

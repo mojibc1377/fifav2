@@ -40,7 +40,7 @@ export default function TabsDemo() {
       </TabsList>
 
       <TabsContent value="all">
-        <h1 className="mb-3 mx-10 text-center">All Challenges<br/>
+        <h1 className="mb-3 mx-10 text-center ">All Challenges<br/>
 Explore a variety of challenges that are waiting to be accepted.<br/> Dive in, find something that excites you, and take on a new challenge today!</h1>
         <div className="container mx-auto items-center justify-center flex mt-10">
           <ChallengeGrid filterType="all" />
@@ -57,7 +57,7 @@ Here you can find all the challenges you have created, whether they have been ac
       </TabsContent>
 
       <TabsContent value="accepted">
-      <h1 className="mb-3 mx-10 text-center">
+      <h1 className="mb-3 mx-10 text-center ">
       Accepted Challenges<br/>
 These are the challenges you have accepted.
 <br/>

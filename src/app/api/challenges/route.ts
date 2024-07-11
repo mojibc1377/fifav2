@@ -13,9 +13,12 @@ export async function GET(req: Request) {
     
 
       const challenges = await db.challenge.findMany({
-        include: {
-          challenger: true,
-          accepter: true,
+        select: {
+          id: true,
+          createdAt: true,
+          challengerId: true,
+          accepterId: true,
+          challengeAmount : true
         },
       });
 

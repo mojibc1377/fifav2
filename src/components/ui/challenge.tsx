@@ -53,7 +53,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, type, s
           title: "Challenge Already Accepted",
           description: "Another user just accepted this challenge. Please refresh the page.",
           duration: 3000,
-        });
+        }); 
       } else {
         const errorData = await response.json();
         toast({
@@ -78,7 +78,7 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, type, s
   return (
     <div>
       <ToastProvider>
-        <Card className="w-max h-60 bg-secondary mt-3 mb-1 bg-opacity-5 shadow-inner border-solid shadow-[#161e2b] border-[#161e2b] sliding-div">
+        <Card className="w-max card h-60 bg-secondary mt-3 mb-1 bg-opacity-5 shadow-inner border-solid  sliding-div">
           <CardHeader className="flex flex-row gap-3 align-middle text-left justify-center">
             <CardTitle>
               <img src={gameImageSrc} alt="game" className="w-28 mix-blend-lighten" />

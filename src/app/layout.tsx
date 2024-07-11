@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { MdOutlineLogin , MdOutlineLogout} from "react-icons/md";
@@ -43,7 +43,7 @@ import Image from "next/image";
 import { SessionProvider } from "next-auth/react";
 
 
-const inter = Inter({ subsets: ["latin"] });
+const space_Grotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ChampsPlus+",
@@ -58,14 +58,13 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(authOptions)
 
-
   // Function to check if the link is active
   const isActive = (path: string) => activePath === path;
  
 
   return (
     <html lang="en" className="dark">
-      <body>
+      <body className={space_Grotesk.className}>
         <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
           <div className="hidden border-r bg-muted/40 md:block">
             <div className="flex h-full justify-between max-h-screen flex-col gap-2">
@@ -301,7 +300,9 @@ export default async function RootLayout({
                   <DropdownMenuSeparator />
               <DropdownMenuItem><Link href={'/dashboard'} className="text-muted-foreground text-base hover:text-primary">Settings</Link></DropdownMenuItem>
               {
-                (session?.user)? <DropdownMenuItem><SignOut/></DropdownMenuItem>  : <DropdownMenuItem><Link href={'/sign-in'}>Login</Link></DropdownMenuItem>
+                (session?.user)? 
+                 <DropdownMenuItem><SignOut/></DropdownMenuItem>  :
+                 <DropdownMenuItem><Link href={'/sign-in'}>Login</Link></DropdownMenuItem>
               }
             </DropdownMenuContent>
           </DropdownMenu>

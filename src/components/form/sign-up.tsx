@@ -18,6 +18,7 @@ import { Toast, ToastProvider } from '@radix-ui/react-toast';
 import { toast, useToast } from '../ui/use-toast';
 import { describe } from 'node:test';
 import { useRouter } from 'next/navigation';
+import { Toaster } from '../ui/toaster';
 
 const FormSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email'),
@@ -65,8 +66,12 @@ const SignUpForm = () => {
       })
     })
   if(response.ok){
-    alert("User created successfully")
-  
+
+    toast({
+      title: 'Account created.',
+      description: "We've created your account for you.",
+      duration: 9000,
+    })
     router.push('/sign-in')
   }else{
     toast({
@@ -194,7 +199,7 @@ const SignUpForm = () => {
           Sign in
         </Link>
       </p>
-
+<Toaster/>
     </Form>
     
 

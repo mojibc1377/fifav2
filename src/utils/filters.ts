@@ -4,7 +4,7 @@ import { Challenge } from '@prisma/client';
 import { Session } from 'next-auth';
 
 export const filterAll = (challenge: Challenge, session: Session | null): boolean => {
-  return true; // No filtering, show all challenges
+  return true; 
 };
 
 export const filterMyChallenges = (challenge: Challenge, session: Session | null): boolean => {

@@ -35,17 +35,17 @@ export default function Support() {
         </TabsList>
 
         <TabsContent value="n">
-          <div className='p-10 text-ellipsis font-sans'>
-          <h1 className="mb-3 text-center text-2xl mt-10 ">Need Help? We are Here for You!</h1>
+          <div className='p-10 pt-0 text-ellipsis '>
+          <h1 className="mb-3 text-center text-2xl mt-5 ">Need Help? We are Here for You!</h1>
           <div className="container mx-auto items-center justify-center text-center flex mt-8">
           If you have any questions or need support, you can easily reach out to us through Telegram, WhatsApp, or direct email. 
           <br/>
-          We’re always here to help you out.<br/>
-          We’re a small team and sometimes it might take a little while to get back to you. <br/>
-          But don’t worry, we’ll respond as soon as possible. <br/>
+          We are always here to help you out.<br/>
+          We are a small team and sometimes it might take a little while to get back to you. <br/>
+          But do nott worry, we wll respond as soon as possible. <br/>
           Your patience and understanding are greatly appreciated!<br/>
           Thank you for being a part of our community. <br/>
-          We’re here to support you every step of the way.<br/>
+          We are here to support you every step of the way.<br/>
           </div>
           </div>
         </TabsContent>
@@ -55,11 +55,11 @@ export default function Support() {
           <div className=" flex flex-row gap-10">
             <a href="https://t.me/+989330726042" className='bg-blue-400 hover:bg-blue-700 w-min px-4 py-2 rounded-md flex items-center gap-2'>
               <p>Telegram</p>
-              <PiTelegramLogo />
+              <PiTelegramLogo className='animate-bounce'/>
             </a>
             <a href="https://wa.me/+989330726042" className='bg-green-500 hover:bg-green-700 w-min px-4 py-2 rounded-md flex items-center gap-2'>
               Whatsapp
-              <FaWhatsapp />
+              <FaWhatsapp className='animate-bounce'/>
             </a>
           </div>
           </div>
