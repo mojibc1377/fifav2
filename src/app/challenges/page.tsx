@@ -19,7 +19,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { SessionProvider } from "next-auth/react";
 
 export default function TabsDemo() {
   return (

@@ -47,4 +47,19 @@ interface UserSession {
   };
 }
 
+
+
+}
+import { Server as HTTPServer } from 'http';
+import { Socket } from 'net';
+
+declare module 'next' {
+  interface NextApiResponse {
+    end(): unknown;
+    socket: Socket & {
+      server: HTTPServer & {
+        io?: any;
+      };
+    };
+  }
 }

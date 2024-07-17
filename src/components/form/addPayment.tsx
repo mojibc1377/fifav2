@@ -37,10 +37,10 @@ const AddPaymentMethod: React.FC = () => {
                 <div className="font-semibold text-lg">
                   {formData.cardHolderName || "FirstName LastName"}
                 </div>
-                <div className="text-sm">
+                <div className="text-xs">
                   {formData.cardNumber ? `**** **** **** ${formData.cardNumber.slice(-4)}` : "**** **** **** 0000"}
                 </div>
-                <div className="text-sm">
+                <div className="text-xs">
                   {formData.expiryMonth && formData.expiryYear ? `${formData.expiryMonth}/${formData.expiryYear}` : "00/00"}
                 </div>
               </div>

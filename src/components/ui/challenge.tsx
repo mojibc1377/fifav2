@@ -97,26 +97,23 @@ export const ChallengeCard: React.FC<ChallengeCardProps> = ({ challenge, type, s
             </div>
           </CardContent>
           <CardFooter className="flex flex-row align-middle justify-between gap-5">
-            {challenge.accepterId ? (
-              <More />
-            ) : type === "my" ? (
-              status === true ? (
-                <More />
-              ) : (
-                <button onClick={handleLoaderClick}>
-                  <LuLoader2 className="animate-spin mt-3 text-blue-300 text-2xl" />
-                </button>
-              )
-            ) : (
-              <button onClick={handleAcceptClick} className="w-max md:w-auto ml-0 md:ml-0 px-5 py-2 bg-[#5b6081] hover:bg-[#4c5275] hover:text-blue-300 text-blue-100 rounded-sm">
-                Accept
-              </button>
-            )}
-            <div className="flex flex-row gap-1">
-              <Gem className="w-5 h-5 self-center text-yellow-50" />
-              <div className="font-light text-muted-foreground text-yellow-50">{challengeAmount}</div>
-            </div>
-          </CardFooter>
+  {challenge.accepterId ? (
+    <More challengerId={challenge.challengerId} accepterId={challenge.accepterId} challengeId ={challenge.id} price={challenge.challengeAmount} date={new Date(createdAt).toDateString()} />
+  ) : type === "my" ? (
+    status === true ? (
+      <More challengerId={challenge.challengerId} accepterId={Number(challenge.accepterId)} challengeId ={challenge.id} price={challenge.challengeAmount} date={new Date(createdAt).toDateString()} />
+    ) : (
+      <button onClick={handleLoaderClick}>
+        <LuLoader2 className="animate-spin mt-3 text-blue-300 text-2xl" />
+      </button>
+    )
+  ) : (
+    <button onClick={handleAcceptClick} className="w-max md:w-auto ml-0 md:ml-0 px-5 py-2 bg-[#5b6081] hover:bg-[#4c5275] hover:text-blue-300 text-blue-100 rounded-sm">
+      Accept
+    </button>
+  )}
+</CardFooter>
+
         </Card>
       </ToastProvider>
     </div>

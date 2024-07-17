@@ -24,7 +24,7 @@ model User {
 }
 
 model Challenge {
-  id              Int   @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   challengerId    Int
   accepterId      Int?
   gameName        String
@@ -32,9 +32,9 @@ model Challenge {
   challengeAmount Int
   resultPhoto     String[]
   winner          String[]
-  createdAt       DateTime @default(now())
-   
+  messages        Json[]    @default([])
+  createdAt       DateTime  @default(now())
 
-  challenger      User     @relation("UserChallenges", fields: [challengerId], references: [id])
-  accepter        User?    @relation("UserAcceptedChallenges", fields: [accepterId], references: [id])
+  challenger      User      @relation("UserChallenges", fields: [challengerId], references: [id])
+  accepter        User?     @relation("UserAcceptedChallenges", fields: [accepterId], references: [id])
 }

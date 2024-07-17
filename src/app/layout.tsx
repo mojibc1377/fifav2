@@ -1,8 +1,11 @@
+
+
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { MdOutlineLogin , MdOutlineLogout} from "react-icons/md";
+import { TbMoneybag } from "react-icons/tb";
 
 import {
   CircleUser,
@@ -10,7 +13,6 @@ import {
   Headset,
   Menu,
   Swords,
-  Package2,
   Search,
   Trophy,
   UserCog,
@@ -40,7 +42,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import SignOut from "@/components/ui/sign-out";
 import Image from "next/image";
-import { SessionProvider } from "next-auth/react";
+import { useEffect } from "react";
 
 
 const space_Grotesk = Space_Grotesk({ subsets: ["latin"] });
@@ -60,7 +62,7 @@ export default async function RootLayout({
 
   // Function to check if the link is active
   const isActive = (path: string) => activePath === path;
- 
+  
 
   return (
     <html lang="en" className="dark">
@@ -112,6 +114,14 @@ export default async function RootLayout({
                   >
                     <Headset className="h-4 w-4" />
                     Support
+                  </Link>
+
+                  <Link
+                    href="/earn"
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isActive("/") ? "italic" : ""}`}>
+                  
+                    <TbMoneybag className="h-4 w-4" />
+                    Earn coins
                   </Link>
                   <Link
                       href="/sign-in"
