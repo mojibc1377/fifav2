@@ -1,4 +1,5 @@
-// components/AddChallengeForm.tsx
+// src/components/AddChallengeForm.tsx
+
 "use client"
 import { useState } from "react";
 import { ToastProvider } from '@radix-ui/react-toast';
@@ -9,6 +10,7 @@ const AddChallengeForm = () => {
   const [gameType, setGameType] = useState("");
   const [consoleType, setConsoleType] = useState("");
   const [price, setPrice] = useState("");
+  const [mode, setMode] = useState(""); // New state for the mode
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,10 +25,11 @@ const AddChallengeForm = () => {
           gameType,
           consoleType,
           price: parseInt(price, 10),
+          mode,
         }),
       });
-
-      const data = await response.json()
+console.log(response)
+      const data = await response.json();
       if (response.ok) {
         toast({
           title: "Challenge Added",
@@ -38,10 +41,11 @@ const AddChallengeForm = () => {
         setGameType("");
         setConsoleType("");
         setPrice("");
-      } else if(response.status == 402 ) {
+        setMode(""); // Clear the mode field
+      } else if (response.status === 402) {
         toast({
-          title: "insufficient funds",
-          description: "please charge account",
+          title: "Insufficient Funds",
+          description: "Please charge account",
           duration: 3000,
           variant: 'destructive'
         });
@@ -101,6 +105,21 @@ const AddChallengeForm = () => {
               <option value="">Select console</option>
               <option value="ps4">PS4</option>
               <option value="ps5">PS5</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block mb-2">Mode</label>
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              className="w-full px-3 py-2 border rounded bg-muted-foreground shadow-sm focus:outline-none focus:border-gray-800"
+              required
+            >
+              <option value="">Select mode</option>
+              <option value="fut">FUT (Ultimate)</option>
+              <option value="kick-off">Kick-Off</option>
+              <option value="95-overall">95-Overall</option>
             </select>
           </div>
 

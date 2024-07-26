@@ -1,27 +1,20 @@
 // src/pages/challenges.tsx
-
+"use client"
 import AddChallengeForm from "@/components/ui/ChallengeForm";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import ChallengeGrid from "@/components/ui/challengeGrid";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import { SessionProvider } from "next-auth/react";
 
 export default function TabsDemo() {
   return (
+    <SessionProvider>
     <Tabs defaultValue="all" className="w-full min-h-screen md:px-10 px-10 mt-3">
       <TabsList className="flex w-full md:px-10 gap-2 md:gap-6 mb-5 justify-evenly flex-col md:flex-row">
         <TabsTrigger className="px-3 py-2 md:px-5 md:py-2 " value="all">
@@ -78,5 +71,6 @@ Have an idea for a new challenge? Share it here! Post your challenge to the wall
         </div>
       </TabsContent>
     </Tabs>
+    </SessionProvider>
   );
 }

@@ -150,3 +150,44 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Hide the default Google Translate widget */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget {
+  display: none !important;
+}
+
+
+/* Custom styles for the dropdown */
+.goog-te-combo {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* Ensure that the dropdown and other elements don't affect layout */
+.goog-te-combo option {
+  background-color: #333;
+  color: #fff;
+}
+.file-upload {
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+/* 
+.file-upload input {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  cursor: pointer;
+} */

@@ -1,12 +1,13 @@
 
 
 import type { Metadata } from "next";
+import GoogleTranslate from '../components/GoogleTranslate';
+
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { MdOutlineLogin , MdOutlineLogout} from "react-icons/md";
 import { TbMoneybag } from "react-icons/tb";
-
 import {
   CircleUser,
   Home,
@@ -18,7 +19,6 @@ import {
   UserCog,
 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -42,8 +42,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import SignOut from "@/components/ui/sign-out";
 import Image from "next/image";
-import { useEffect } from "react";
-
 
 const space_Grotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -144,7 +142,7 @@ export default async function RootLayout({
              
             </div>
             </div>
-            <div className="fixed w-64 mt-auto p-4 sliding-div bottom-0" style={{ backgroundImage: `url(${'/images/bg/bg.jpg'})`, backgroundSize: 'cover' , opacity:"revert-layer" }}>
+            <div className="fixed lg:w-64 md:w-56 mt-auto p-4 sliding-div bottom-0 lg:ml-2">
                 <Card x-chunk="dashboard-02-chunk-0  ">
                   <CardHeader className="p-2 pt-0 md:p-4">
                     <CardTitle>Upgrade to Pro</CardTitle>
@@ -278,7 +276,9 @@ export default async function RootLayout({
                     />
                   </div>
                 </form>
+                
               </div>
+            
               <DropdownMenu>
                 <div className=" font-thin mr-0">
               {session?.user?.userName}
@@ -318,6 +318,9 @@ export default async function RootLayout({
           </DropdownMenu>
         </header>
         <div style={{ backgroundImage: `url(${'/images/bg/bg.jpg'})`, backgroundSize: 'cover' , opacity:"revert-layer" }}>
+       
+        <GoogleTranslate />
+
         {children}
                 </div>
       </div>

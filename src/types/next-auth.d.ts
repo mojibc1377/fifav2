@@ -8,7 +8,9 @@ declare module "next-auth" {
     phone: string;
     createdAt: Date;
     credit: number;
-    avatar : string
+    avatar : string;
+    isAdmin: boolean;
+
   }
 
   interface Session {
@@ -22,6 +24,7 @@ declare module "next-auth" {
       credit: number;
       avatar : string;
       session : object?;
+      isAdmin: boolean;
 
     };
   }
@@ -55,6 +58,7 @@ import { Socket } from 'net';
 
 declare module 'next' {
   interface NextApiResponse {
+    [x: string]: any;
     end(): unknown;
     socket: Socket & {
       server: HTTPServer & {

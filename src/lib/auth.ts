@@ -11,21 +11,21 @@ export const authOptions: NextAuthOptions = {
     signIn: '/signin',
   },
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
   },
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "mail@mail.com" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
         const existingUser = await db.user.findUnique({
-          where: { email: credentials.email }
+          where: { email: credentials.email },
         });
 
         if (!existingUser) {
@@ -44,14 +44,14 @@ export const authOptions: NextAuthOptions = {
           phone: existingUser.phone,
           createdAt: existingUser.createdAt,
           credit: existingUser.credit,
-          avatar:existingUser.avatar
+          avatar: existingUser.avatar,
+          isAdmin: existingUser.isAdmin,
         };
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      
       if (user) {
         return {
           ...token,
@@ -61,7 +61,8 @@ export const authOptions: NextAuthOptions = {
           phone: user.phone,
           createdAt: user.createdAt,
           credit: user.credit,
-          avatar : user.avatar
+          avatar: user.avatar,
+          isAdmin: user.isAdmin,
         };
       }
       return token;
@@ -69,7 +70,6 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       return {
         ...session,
-        session,
         user: {
           ...session.user,
           id: token.id,
@@ -78,9 +78,10 @@ export const authOptions: NextAuthOptions = {
           phone: token.phone,
           createdAt: token.createdAt,
           credit: token.credit,
-          avatar:token.avatar
+          avatar: token.avatar,
+          isAdmin: token.isAdmin,
         },
       };
-    }
-  }
+    },
+  },
 };

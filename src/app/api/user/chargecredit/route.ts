@@ -1,21 +1,20 @@
-import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import * as z from "zod";
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
+import * as z from 'zod';
 
 // Schema input validation
 const CreditSchema = z.object({
-  amount: z.number().min(1, "Amount must be greater than 0"),
+  amount: z.number().min(1, 'Amount must be greater than 0'),
 });
 
 export async function POST(req: Request) {
   try {
-    // Get the session
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
     const userId = session.user.id;
@@ -33,9 +32,18 @@ export async function POST(req: Request) {
       },
     });
 
+    // Log the transaction
+    await db.transaction.create({
+      data: {
+        amount,
+        userId: Number(userId),
+      },
+    });
+
     const { password, ...rest } = updatedUser;
-    return NextResponse.json({ user: rest, message: "Credit updated successfully" }, { status: 200 });
+    return NextResponse.json({ user: rest, message: 'Credit updated successfully' }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Error updating credit" }, { status: 500 });
+    console.error("Error updating credit:", error);
+    return NextResponse.json({ message: 'Error updating credit' }, { status: 500 });
   }
 }

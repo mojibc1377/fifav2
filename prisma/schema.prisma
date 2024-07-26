@@ -19,8 +19,24 @@ model User {
   userName            String      @unique
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
+  isAdmin    Boolean      @default(false)
+
+
+
   challenges          Challenge[] @relation("UserChallenges")
   acceptedChallenges  Challenge[] @relation("UserAcceptedChallenges")
+  transactions        Transaction[]  @relation("UserTransactions")
+
+  submissions         Submission[]
+}
+
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  amount    Int
+  timestamp DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], name: "UserTransactions")
+
 }
 
 model Challenge {
@@ -30,6 +46,7 @@ model Challenge {
   gameName        String
   consoleType     String
   challengeAmount Int
+  mode            String    @default("")
   resultPhoto     String[]
   winner          String[]
   messages        Json[]    @default([])
@@ -37,4 +54,31 @@ model Challenge {
 
   challenger      User      @relation("UserChallenges", fields: [challengerId], references: [id])
   accepter        User?     @relation("UserAcceptedChallenges", fields: [accepterId], references: [id])
+
+  
+}
+
+model Reward {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  amount          Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  submittedUserIds Int[]     @default([])  // Add this line
+
+  submissions     Submission[]
+}
+
+model Submission {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  rewardId        Int
+  screenshot      String
+  approved        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id])
+  reward          Reward   @relation(fields: [rewardId], references: [id])
 }

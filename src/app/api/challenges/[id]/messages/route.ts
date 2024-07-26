@@ -7,9 +7,8 @@ import { getServerSession } from 'next-auth';
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextApiRequest) {
-  const id  = req.query;
-  console.log(id)
+export async function GET(req: NextApiRequest,{params} : {params: {id : string}} ) {
+  const id  = params.id;
 
   const session = await getServerSession(authOptions)
 

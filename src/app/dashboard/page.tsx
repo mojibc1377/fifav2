@@ -9,9 +9,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import AddCreditForm from '@/components/chargeAccount';
 import { SessionProvider } from 'next-auth/react';
 import AddPaymentMethod from '@/components/form/addPayment';
+
 
 const Dashboard = () => {
   const [avatar, setAvatar] = useState('');
@@ -29,6 +29,9 @@ const Dashboard = () => {
        
         <TabsTrigger className="px-3 py-2 md:px-5 md:py-2 " value="chargeaccount">
           Credit panel
+        </TabsTrigger>
+        <TabsTrigger className="px-3 py-2 md:px-5 md:py-2 " value="history">
+          Credit history
         </TabsTrigger>
       </TabsList>
       <TabsContent value='n'>
@@ -56,7 +59,14 @@ Whether you want to charge your account to increase your credit or withdraw mone
       <TabsContent value="chargeaccount">
         <SessionProvider>
         <AddPaymentMethod/>
-        <AddCreditForm />
+
+        </SessionProvider>
+      </TabsContent>
+
+
+      <TabsContent value="history">
+        <SessionProvider>
+        <AddPaymentMethod/>
 
         </SessionProvider>
       </TabsContent>

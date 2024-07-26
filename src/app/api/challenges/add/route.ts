@@ -9,7 +9,8 @@ import * as z from "zod"
 const ChallengeSchema = z.object({
   gameType: z.enum(['fc24', 'fc25']).optional(), // Enum for game types
   consoleType: z.string().min(1, "Console type is required"),
-  price: z.number().min(10, "Price must be at least 10 coins").max(100, "Price cannot exceed 100 coins"),
+  price: z.number().min(100, "Price must be at least 10 coins").max(1000, "Price cannot exceed 100 coins"),
+  mode : z.enum(['kick-off', '95-overall', 'fut'])
 });
 
 export async function POST (req:Request)  {
@@ -21,7 +22,7 @@ export async function POST (req:Request)  {
       }
       const body = await req.json();
 
-      const { gameType, consoleType, price } = ChallengeSchema.parse(body);
+      const { gameType, consoleType, price, mode } = ChallengeSchema.parse(body);
 
       const user = await db.user.findUnique({
         where: { id: Number(session.user.id) },
@@ -41,6 +42,7 @@ export async function POST (req:Request)  {
           consoleType,
           challengeAmount: price,
           challengerId: Number(session.user.id), // User ID who created the challenge
+          mode,
         },
       });
 

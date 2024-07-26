@@ -1,15 +1,11 @@
 // pages/api/challenges/index.ts
 
-import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   if (req.method === "GET") {
     try {
-      const session = await getServerSession(authOptions);
     
 
       const challenges = await db.challenge.findMany({
@@ -18,7 +14,9 @@ export async function GET(req: Request) {
           createdAt: true,
           challengerId: true,
           accepterId: true,
-          challengeAmount : true
+          challengeAmount : true,
+          consoleType : true,
+          mode : true
         },
       });
 

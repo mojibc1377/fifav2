@@ -1,8 +1,12 @@
 // components/AddPaymentMethod.tsx
 "use client"
-import React, { useState } from 'react';
+import { Transaction } from '@prisma/client';
+import { useSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react';
 
 const AddPaymentMethod: React.FC = () => {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading,setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     cardHolderName: '',
     cardNumber: '',
@@ -11,16 +15,80 @@ const AddPaymentMethod: React.FC = () => {
     cvv: '',
     amount: ''
   });
+  const [message, setMessage] = useState("");
+
+  const { data: session } = useSession();
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    setIsLoading(true)
+    if (!session || !session.user) {
+      setMessage("You must be logged in to charge credit.");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/user/chargecredit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: parseInt(formData.amount, 10),
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessage(data.message || "Credit updated successfully.");
+      } else {
+        const errorData = await response.json();
+        setMessage(errorData.message || "Failed to update credit.");
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage("Failed to update credit due to an unexpected error.");
+    }
+    useEffect(() => {
+      // Simulate loading data
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      },1000); // Change this to your actual data fetching logic
+  
+      return () => clearTimeout(timer);
+    }, []);
+  };
+  const fetchTransactions = async () => {
+    if (!session || !session.user) {
+      setTransactions([]);
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/user/${session.user.id}/transactions`, {
+        method: 'GET',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setTransactions(data);
+      } else {
+        console.error('Failed to fetch transactions:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error fetching transactions:', error);``
+    }
+  };
+
+  useEffect(() => {
+    if (session && session.user) {
+      fetchTransactions();
+    }
+  }, [session]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission logic
-    console.log(formData);
-  };
+  
   const [termsAccepted, setTermsAccepted] = useState(false);
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTermsAccepted(e.target.checked);
@@ -139,10 +207,22 @@ const AddPaymentMethod: React.FC = () => {
             className="h-4 w-4 text-blue-600" />
             <label className="text-gray-500 text-sm">By continuing you agree to our <a href="/rules" className="text-blue-500">Terms</a></label>
           </div>
-          <button type="submit" className={`w-full p-2 rounded-lg ${termsAccepted ? 'bg-[#5b6081] hover:bg-[#4c5275] text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'}`} 
-            disabled={!termsAccepted}>Add now</button>
+          { isLoading? "Loading" :<button type="submit" className={`w-full p-2 rounded-lg ${termsAccepted ? 'bg-[#5b6081] hover:bg-[#4c5275] text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'}`} 
+            disabled={!termsAccepted}>Add Credit</button> }
+   
         </form>
+        <div>
+        <h2>Transaction History</h2>
+        <ul>
+          {transactions.map((transaction) => (
+            <li key={transaction.id}>
+              {transaction.amount} credits added on {new Date(transaction.timestamp).toLocaleString()}
+            </li>
+          ))}
+        </ul>
       </div>
+      </div>
+      
     </div>
   );
 };

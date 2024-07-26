@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { FaArrowDown } from "react-icons/fa6";
+import { TbPlugConnected } from "react-icons/tb";
+
 
 type ChatProps = {
   challengerId: number;
@@ -115,18 +117,17 @@ const Chat: React.FC<ChatProps> = ({ challengerId, accepterId, challengeId }) =>
   };
 
   if (!session) {
-    return <p>Loading...</p>;
+    return <div className=""><TbPlugConnected className="text-red-500 text-2xl mr-10 mt-10 animate-bounce ml-2"/></div>;
   }
 
   return (
     <div className="grid w-full h-5/6">
       <div className="flex flex-col">
-        <p>Status: {isConnected ? "connected" : "disconnected"}</p>
-        <p>Transport: {transport}</p>
+        
         <main className="grid gap-4 overflow-hidden p-4 lg:grid-cols-2">
           <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-background/50 p-3 lg:col-span-2">
             <Badge variant="outline" className="w-fit self-center text-center bg-secondary-foreground/40 text-background top-3">
-              Chat with your Opponent
+              Chat {isConnected ? <TbPlugConnected className="text-green-500  ml-2"/> : <TbPlugConnected className="text-red-500  ml-2"/>}
             </Badge>
             <div className="flex flex-col flex-1 mt-6 space-y-2 px-3 overflow-y-auto max-h-[60vh] scrollbar-hide">
               {messages.map((msg, index) => (
